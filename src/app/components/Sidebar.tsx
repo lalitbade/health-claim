@@ -2,7 +2,16 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, FolderPlus, List, Settings, LogOut, Menu, User, ShieldCheck } from "lucide-react";
+import {
+  Home,
+  FolderPlus,
+  List,
+  Settings,
+  LogOut,
+  Menu,
+  User,
+  ShieldCheck,
+} from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import * as Tooltip from "@radix-ui/react-tooltip";
 
@@ -12,16 +21,14 @@ const Sidebar = () => {
   const pathname = usePathname();
 
   useEffect(() => {
-    // Retrieve user data from localStorage
     const storedUsername = localStorage.getItem("username");
     setUsername(storedUsername || "Guest");
   }, []);
 
-  // Navigation Items
   const menuItems = [
     { name: "Dashboard", icon: Home, path: "/" },
     { name: "Add a Claim", icon: FolderPlus, path: "/addclaim" },
-    { name: "Claims Listing", icon: List, path: "/claims-history" },
+    { name: "Claims Listing", icon: List, path: "/claimshistory" },
     { name: "Settings", icon: Settings, path: "/settings" },
   ];
 
@@ -30,20 +37,20 @@ const Sidebar = () => {
       <motion.aside
         initial={{ width: "16rem" }}
         animate={{ width: isCollapsed ? "5rem" : "16rem" }}
-        transition={{ duration: 0.3 }}
-        className="h-screen fixed top-0 left-0 bg-gray-900 text-white flex flex-col shadow-xl border-r border-gray-800"
+        transition={{ duration: 0.4, ease: "easeInOut" }}
+        className="h-screen fixed top-0 left-0 bg-gradient-to-b from-blue-900 to-black text-white flex flex-col shadow-2xl border-r border-gray-800 backdrop-blur-lg"
       >
         {/* Sidebar Header */}
         <div className="flex items-center justify-between p-4 border-b border-gray-800">
           <div className="flex items-center gap-3">
-            <ShieldCheck size={28} className="text-blue-500" />
+            <ShieldCheck size={28} className="text-blue-400" />
             <AnimatePresence>
               {!isCollapsed && (
                 <motion.h1
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  className="text-xl font-bold"
+                  className="text-xl font-bold bg-clip-text text-transparent bg-white"
                 >
                   InsuraFlow
                 </motion.h1>
@@ -52,7 +59,7 @@ const Sidebar = () => {
           </div>
           <button
             onClick={() => setIsCollapsed(!isCollapsed)}
-            className="p-2 rounded-full bg-gray-800 hover:bg-gray-700 transition"
+            className="p-2 rounded-full bg-white/10 hover:bg-white/20 transition-all"
           >
             <Menu size={20} />
           </button>
@@ -65,14 +72,16 @@ const Sidebar = () => {
               <Tooltip.Trigger asChild>
                 <Link href={item.path}>
                   <motion.div
-                    className={`flex items-center gap-4 p-3 rounded-lg transition-all cursor-pointer ${
+                    className={`flex items-center gap-4 p-3 rounded-lg transition-all cursor-pointer shadow-md ${
                       pathname === item.path
-                        ? "bg-blue-600 text-white shadow-md"
-                        : "hover:bg-gray-800 text-gray-300"
+                        ? "bg-blue-500/20 text-white shadow-lg scale-105"
+                        : "hover:bg-white/10 text-gray-300"
                     }`}
                   >
-                    <item.icon size={24} />
-                    {!isCollapsed && <span className="text-base font-medium">{item.name}</span>}
+                    <item.icon size={24} className="text-blue-300" />
+                    {!isCollapsed && (
+                      <span className="text-base font-medium">{item.name}</span>
+                    )}
                   </motion.div>
                 </Link>
               </Tooltip.Trigger>
@@ -80,10 +89,10 @@ const Sidebar = () => {
                 <Tooltip.Portal>
                   <Tooltip.Content
                     side="right"
-                    className="bg-gray-700 text-white px-3 py-1 rounded-md text-sm shadow-md"
+                    className="bg-gray-800 text-white px-3 py-1 rounded-md text-sm shadow-lg"
                   >
                     {item.name}
-                    <Tooltip.Arrow className="fill-gray-700" />
+                    <Tooltip.Arrow className="fill-gray-800" />
                   </Tooltip.Content>
                 </Tooltip.Portal>
               )}
@@ -92,38 +101,42 @@ const Sidebar = () => {
         </nav>
 
         {/* Profile & Logout Section */}
-        <div className="border-t border-gray-800 p-4 mt-auto">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center">
-              <User size={24} />
+        <div className="border-t border-gray-800 p-6 mt-auto">
+          <div className="flex items-center justify-between">
+            {/* User Info */}
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center">
+                <User size={54} className="text-blue-300" />
+              </div>
+              <AnimatePresence>
+                {!isCollapsed && (
+                  <motion.div
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -10 }}
+                  >
+                    <h2 className="text-lg font-semibold">{username}</h2>
+                    <p className="text-sm text-gray-400">Customer</p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
-            <AnimatePresence>
-              {!isCollapsed && (
-                <motion.div
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -10 }}
-                >
-                  <h2 className="text-lg font-semibold">{username}</h2>
-                  <p className="text-sm text-gray-400">Customer</p>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
 
-          {/* Logout Button */}
-          <button
-            onClick={() => {
-              localStorage.removeItem("token");
-              localStorage.removeItem("username");
-              localStorage.removeItem("user");
-              window.location.href = "/login";
-            }}
-            className="flex items-center gap-4 p-3 mt-4 rounded-lg bg-red-600 text-white hover:bg-red-700 transition-all w-full"
-          >
-            <LogOut size={20} />
-            {!isCollapsed && <span className="text-base font-medium">Logout</span>}
-          </button>
+            {/* 🔥 Stylish Compact Logout Button */}
+            <motion.button
+              onClick={() => {
+                localStorage.removeItem("token");
+                localStorage.removeItem("username");
+                localStorage.removeItem("user");
+                window.location.href = "/login";
+              }}
+              whileHover={{ scale: 1.1, rotate: -10 }}
+              whileTap={{ scale: 0.9 }}
+              className="p-4 rounded-full bg-red-500 hover:bg-red-600 transition-all shadow-lg"
+            >
+              <LogOut size={18} />
+            </motion.button>
+          </div>
         </div>
       </motion.aside>
     </Tooltip.Provider>

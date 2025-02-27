@@ -12,6 +12,7 @@ import { Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/autoplay";
+import Header from "../components/Header";
 
 const features = [
   {
@@ -53,25 +54,7 @@ const Home: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900">
       {/* Navbar */}
-      <nav className="fixed w-full bg-white/90 backdrop-blur-md shadow-md z-50 border-b">
-        <div className="max-w-7xl mx-auto px-6 flex items-center justify-between h-16">
-          <Link href="/" className="flex items-center">
-            <i className="fa-solid fa-shield-halved text-blue-600 text-3xl mr-3"></i>
-            <span className="text-2xl font-bold">InsuraFlow</span>
-          </Link>
-          <div className="hidden md:flex items-center space-x-6">
-            {["Products", "Solutions", "About", "Contact"].map(item => (
-              <Link key={item} href={`/${item.toLowerCase()}`} className="text-gray-700 hover:text-blue-600 font-medium">
-                {item}
-              </Link>
-            ))}
-            <Button className="bg-blue-600 text-white" onClick={() => router.push("/login")}>Login</Button>
-          </div>
-          <button className="md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-            <i className="fa-solid fa-bars text-gray-700 text-2xl"></i>
-          </button>
-        </div>
-      </nav>
+      <Header/>
 
       {/* Hero Section */}
       <section className="relative pt-24 bg-white">

@@ -1,9 +1,11 @@
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContainer } from "recharts";
+import { Card, CardContent } from "@/components/ui/card";
+import { motion } from "framer-motion";
 
 const rawStatistics = [
-  { label: "Active Policies", value: 320, color: "text-blue-500", bg: "bg-blue-100 dark:bg-blue-900" },
-  { label: "Claims Processed", value: 120, color: "text-green-500", bg: "bg-green-100 dark:bg-green-900" },
-  { label: "Pending Cases", value: 15, color: "text-red-500", bg: "bg-red-100 dark:bg-red-900" },
+  { label: "Active Policies", value: 320, color: "text-blue-600", bg: "bg-blue-50" },
+  { label: "Claims Processed", value: 120, color: "text-green-600", bg: "bg-green-50" },
+  { label: "Pending Cases", value: 15, color: "text-red-600", bg: "bg-red-50" },
 ];
 
 const policyData = [
@@ -17,57 +19,45 @@ const policyData = [
 
 const Graphs = () => {
   return (
-    <div className="bg-white dark:bg-gray-900 p-8 rounded-2xl shadow-2xl w-full transition-all">
+    <div className="bg-gradient-to-br from-gray-50 to-white p-10 rounded-3xl shadow-2xl w-full max-w-6xl mx-auto transition-all">
       
       {/* Title */}
-      <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-6"> Live Policy Statistics</h2>
+      <h2 className="text-3xl font-extrabold text-gray-800 text-center mb-8 tracking-tight">Live Policy Statistics</h2>
       
-      {/* Statistics Section */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-        {rawStatistics.map((stat, index) => (
-          <div
-            key={index}
-            className={`p-6 rounded-xl shadow-md flex flex-col items-center ${stat.bg} transition-all hover:scale-105`}
-          >
-            <h3 className={`text-4xl font-bold ${stat.color}`}>{stat.value}</h3>
-            <p className="text-gray-700 dark:text-gray-200 mt-2">{stat.label}</p>
-          </div>
-        ))}
-      </div>
+      
 
       {/* Graphs Section */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
         
         {/* Line Chart */}
-        <div className="bg-gray-100 dark:bg-gray-800 p-6 rounded-2xl shadow-md transition-all hover:scale-105">
-          <h2 className="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-4">Policy Growth & Claims Trend</h2>
-          <ResponsiveContainer width="100%" height={300}>
+        <motion.div whileHover={{ scale: 1.02 }} className="bg-white p-6 rounded-3xl shadow-lg border border-gray-200">
+          <h2 className="text-xl font-semibold text-gray-700 mb-4">Policy Growth & Claims Trend</h2>
+          <ResponsiveContainer width="100%" height={320}>
             <LineChart data={policyData}>
-              <XAxis dataKey="month" stroke="#8884d8" />
-              <YAxis />
-              <Tooltip />
-              <CartesianGrid strokeDasharray="3 3" stroke="#ccc" />
-              <Line type="monotone" dataKey="policies" stroke="#4F46E5" strokeWidth={3} dot={{ r: 5 }} />
-              <Line type="monotone" dataKey="claims" stroke="#E53E3E" strokeWidth={3} dot={{ r: 5 }} />
+              <XAxis dataKey="month" stroke="#8884d8" tick={{ fontSize: 14 }} />
+              <YAxis tick={{ fontSize: 14 }} />
+              <Tooltip contentStyle={{ backgroundColor: "white", borderRadius: "10px", boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)" }} />
+              <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+              <Line type="monotone" dataKey="policies" stroke="#4F46E5" strokeWidth={4} dot={{ r: 6 }} />
+              <Line type="monotone" dataKey="claims" stroke="#E53E3E" strokeWidth={4} dot={{ r: 6 }} />
             </LineChart>
           </ResponsiveContainer>
-        </div>
+        </motion.div>
 
         {/* Bar Chart */}
-        <div className="bg-gray-100 dark:bg-gray-800 p-6 rounded-2xl shadow-md transition-all hover:scale-105">
-          <h2 className="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-4">Monthly Policies & Claims</h2>
-          <ResponsiveContainer width="100%" height={300}>
+        <motion.div whileHover={{ scale: 1.02 }} className="bg-white p-6 rounded-3xl shadow-lg border border-gray-200">
+          <h2 className="text-xl font-semibold text-gray-700 mb-4">Monthly Policies & Claims</h2>
+          <ResponsiveContainer width="100%" height={320}>
             <BarChart data={policyData}>
-              <XAxis dataKey="month" stroke="#8884d8" />
-              <YAxis />
-              <Tooltip />
-              <CartesianGrid strokeDasharray="3 3" stroke="#ccc" />
-              <Bar dataKey="policies" fill="#4F46E5" radius={[5, 5, 0, 0]} />
-              <Bar dataKey="claims" fill="#E53E3E" radius={[5, 5, 0, 0]} />
+              <XAxis dataKey="month" stroke="#8884d8" tick={{ fontSize: 14 }} />
+              <YAxis tick={{ fontSize: 14 }} />
+              <Tooltip contentStyle={{ backgroundColor: "white", borderRadius: "10px", boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)" }} />
+              <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+              <Bar dataKey="policies" fill="#4F46E5" radius={[8, 8, 0, 0]} />
+              <Bar dataKey="claims" fill="#E53E3E" radius={[8, 8, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
-        </div>
-
+        </motion.div>
       </div>
     </div>
   );

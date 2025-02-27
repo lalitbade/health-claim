@@ -5,7 +5,8 @@ import { FaFilePdf, FaDownload } from "react-icons/fa";
 const documents = [
     { name: "Policy_Doc.pdf", type: "pdf", url: "#" },
     { name: "Claim_Form.pdf", type: "pdf", url: "#" },
-    { name: "Terms.pdf", type: "pdf", url: "#" },
+    { name: "PAN Card.pdf", type: "pdf", url: "#" },
+    { name: "Aadhar Card.pdf", type: "pdf", url: "#" },
   ];
   
   const DocumentsList = () => {
