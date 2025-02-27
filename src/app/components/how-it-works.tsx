@@ -13,25 +13,25 @@ const steps = [
     icon: Upload,
     title: "Submit Claim",
     description: "Upload medical documents and bills through our secure portal or mobile app.",
-    color: "bg-blue-500",
+    color: "bg-blue-600",
   },
   {
     icon: Bot,
     title: "AI Verification",
     description: "Our AI analyzes documents using OCR and machine learning to detect fraud patterns.",
-    color: "bg-indigo-500",
+    color: "bg-indigo-600",
   },
   {
     icon: Clock,
     title: "Instant Approvals",
     description: "Legitimate claims are automatically approved without human intervention.",
-    color: "bg-purple-500",
+    color: "bg-purple-600",
   },
   {
     icon: CreditCard,
     title: "Seamless Payouts",
     description: "Receive funds directly to your preferred payment method within 24 hours.",
-    color: "bg-pink-500",
+    color: "bg-pink-600",
   },
 ];
 
@@ -90,16 +90,16 @@ export function HowItWorks() {
     <section 
       id="how-it-works"
       ref={sectionRef}
-      className="py-24 bg-gradient-to-b from-blue-50 to-blue-50"
+      className="py-24 bg-gradient-to-br from-blue-50 to-indigo-100"
     >
       <div className="container mx-auto px-4 md:px-6">
         <div className="max-w-3xl mx-auto text-center mb-16">
-          <h2
+          <motion.h2
             ref={titleRef}
-            className="text-black text-4xl md:text-5xl font-bold mb-6"
+            className="text-black text-4xl md:text-5xl font-extrabold mb-6"
           >
             How It Works
-          </h2>
+          </motion.h2>
           <p className="text-lg text-gray-600">
             Our AI-powered system streamlines the entire claims process, from submission to payout.
           </p>
@@ -118,12 +118,12 @@ export function HowItWorks() {
               className="relative"
               variants={itemVariants}
             >
-              <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-100 h-full flex flex-col items-center text-center transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
-                <div className={`${step.color} w-16 h-16 rounded-full flex items-center justify-center mb-6`}>
-                  <step.icon className="h-8 w-8 text-white" />
+              <div className="bg-white rounded-xl p-8 shadow-lg border border-gray-100 h-full flex flex-col items-center text-center transition-all duration-300 hover:shadow-2xl hover:transform hover:scale-105 hover:-translate-y-2">
+                <div className={`${step.color} w-20 h-20 rounded-full flex items-center justify-center mb-6`}>
+                  <step.icon className="h-10 w-10 text-white" />
                 </div>
-                <h3 className="text-xl font-semibold mb-3">{step.title}</h3>
-                <p className="text-gray-600">{step.description}</p>
+                <h3 className="text-2xl font-semibold text-gray-800 mb-3">{step.title}</h3>
+                <p className="text-gray-700">{step.description}</p>
                 
                 {index < steps.length - 1 && (
                   <div className="hidden lg:block absolute top-1/2 left-full transform -translate-y-1/2 -translate-x-1/2 w-12 h-2">
@@ -133,7 +133,6 @@ export function HowItWorks() {
                   </div>
                 )}
               </div>
-              
               <div className="absolute -z-10 inset-0 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-xl transform rotate-3 opacity-20"></div>
             </motion.div>
           ))}

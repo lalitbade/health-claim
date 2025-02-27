@@ -34,7 +34,6 @@ export function HeroSection() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [scrollYProgress, opacity]);
 
-
   useEffect(() => {
     if (!headlineRef.current || !subheadlineRef.current || !ctaRef.current) return;
 
@@ -42,7 +41,7 @@ export function HeroSection() {
 
     tl.from(headlineRef.current, {
       y: 50,
-      opacity: 1,  
+      opacity: 0,
       duration: 0.8,
       ease: "power3.out",
     })
@@ -54,11 +53,10 @@ export function HeroSection() {
       }, "-=0.4")
       .from(ctaRef.current, {
         y: 20,
-        opacity: 1,  
+        opacity: 0,
         duration: 0.6,
         ease: "power3.out",
       }, "-=0.4");
-
 
     return () => {
       tl.kill();
@@ -112,64 +110,66 @@ export function HeroSection() {
         style={{ y, opacity }}
       >
         <div className="max-w-4xl mx-auto text-center">
+          {/* Main headline with gradient */}
           <motion.h1
             ref={headlineRef}
-            className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600 mb-6"
+            className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 mb-6"
           >
-            AI-Powered Insurance Claims Faster, Smarter, Safer
+            AI-Powered Insurance Claims: Faster, Smarter, Safer
           </motion.h1>
 
+          {/* Subheadline */}
           <motion.p
             ref={subheadlineRef}
             className="text-xl md:text-2xl text-gray-700 mb-8 max-w-2xl mx-auto"
           >
-            Automated verification, fraud detection & instant approvals.
+            Automated verification, fraud detection, and instant approvals.
           </motion.p>
 
+          {/* CTA Buttons */}
           <motion.div
             ref={ctaRef}
             className="flex flex-col sm:flex-row items-center justify-center gap-4"
-            style={{ opacity: 1 }}  // ✅ Ensure it's always visible
+            style={{ opacity: 1 }}  // Ensure it's always visible
           >
-
-            <Button variant="gradient" size="xl" className="w-full sm:w-auto">
+            <Button variant="gradient" className="w-full sm:w-auto bg-blue-600 text-white hover:bg-blue-700 transition-colors duration-300">
               Get Started
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
-            <Button variant="outline" size="xl" className="w-full sm:w-auto">
-              Request a Demo
-            </Button>
+        
+
           </motion.div>
 
+          {/* Features Section */}
           <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
             <motion.div
-              className="flex items-center justify-center gap-3 bg-white/80 backdrop-blur-sm p-4 rounded-xl shadow-sm"
+              className="flex items-center justify-center gap-3 bg-white/80 backdrop-blur-sm p-4 rounded-xl shadow-lg"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
             >
               <Shield className="h-6 w-6 text-blue-600" />
-              <span className="text-sm font-medium">AI-Powered Fraud Detection</span>
+              <span className="text-sm font-medium text-gray-800">AI-Powered Fraud Detection</span>
             </motion.div>
 
             <motion.div
-              className="flex items-center justify-center gap-3 bg-white/80 backdrop-blur-sm p-4 rounded-xl shadow-sm"
+              className="flex items-center justify-center gap-3 bg-white/80 backdrop-blur-sm p-4 rounded-xl shadow-lg"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.8 }}
             >
               <Clock className="h-6 w-6 text-blue-600" />
-              <span className="text-sm font-medium">90% Faster Approvals</span>
+              <span className="text-sm font-medium text-gray-800">90% Faster Approvals</span>
             </motion.div>
 
             <motion.div
-              className="flex items-center justify-center gap-3 bg-white/80 backdrop-blur-sm p-4 rounded-xl shadow-sm"
+              className="flex items-center justify-center gap-3 bg-white/80 backdrop-blur-sm p-4 rounded-xl shadow-lg"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1 }}
             >
               <CheckCircle className="h-6 w-6 text-blue-600" />
-              <span className="text-sm font-medium">99.8% Accuracy Rate</span>
+              <span className="text-sm font-medium text-gray-800">99.8% Accuracy Rate</span>
             </motion.div>
           </div>
         </div>

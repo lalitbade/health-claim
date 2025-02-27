@@ -20,11 +20,11 @@ export function CTASection() {
     setMousePosition({ x, y });
     
     // Magnetic effect
-    const magneticPull = 0.2;
+    const magneticPull = 0.3; // Slightly stronger magnetic pull for better interaction
     controls.start({
       x: x * magneticPull,
       y: y * magneticPull,
-      transition: { type: "spring", stiffness: 350, damping: 15 },
+      transition: { type: "spring", stiffness: 350, damping: 20 },
     });
   };
 
@@ -100,11 +100,12 @@ export function CTASection() {
                 ref={buttonRef}
                 variant="gradient" 
                 size="xl" 
-                className="bg-black text-white "
+                className="relative bg-black text-white py-4 px-6 rounded-full shadow-xl flex items-center justify-center group"
               >
                 Get Started Today
                 <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                 
+                {/* Animated Hover Effect */}
                 <motion.span
                   className="absolute inset-0 bg-white rounded-md"
                   initial={{ scale: 0, opacity: 0 }}

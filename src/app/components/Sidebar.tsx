@@ -133,7 +133,7 @@ const Sidebar = () => {
               }}
               whileHover={{ scale: 1.1, rotate: -10 }}
               whileTap={{ scale: 0.9 }}
-              className="p-4 rounded-full bg-red-500 hover:bg-red-600 transition-all shadow-lg"
+              className="p-3 rounded-full bg-red-500 hover:bg-red-600 transition-all shadow-lg"
             >
               <LogOut size={18} />
             </motion.button>
