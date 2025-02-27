@@ -38,19 +38,19 @@ const Sidebar = () => {
         initial={{ width: "16rem" }}
         animate={{ width: isCollapsed ? "5rem" : "16rem" }}
         transition={{ duration: 0.4, ease: "easeInOut" }}
-        className="h-screen fixed top-0 left-0 bg-gradient-to-b from-blue-900 to-black text-white flex flex-col shadow-2xl border-r border-gray-800 backdrop-blur-lg"
+        className="h-screen fixed top-0 left-0 bg-gradient-to-br from-[#1E1F47] via-[#212E74] to-[#5500FF] text-white flex flex-col shadow-2xl border-r border-gray-800 backdrop-blur-lg"
       >
         {/* Sidebar Header */}
-        <div className="flex items-center justify-between p-4 border-b border-gray-800">
+        <div className="flex items-center justify-between p-4 border-b border-gray-800 bg-white/10 backdrop-blur-md">
           <div className="flex items-center gap-3">
-            <ShieldCheck size={28} className="text-blue-400" />
+            <ShieldCheck size={28} className="text-blue-300 drop-shadow-lg" />
             <AnimatePresence>
               {!isCollapsed && (
                 <motion.h1
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  className="text-xl font-bold bg-clip-text text-transparent bg-white"
+                  className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-300"
                 >
                   InsuraFlow
                 </motion.h1>
@@ -72,13 +72,14 @@ const Sidebar = () => {
               <Tooltip.Trigger asChild>
                 <Link href={item.path}>
                   <motion.div
+                    whileHover={{ scale: 1.05 }}
                     className={`flex items-center gap-4 p-3 rounded-lg transition-all cursor-pointer shadow-md ${
                       pathname === item.path
                         ? "bg-blue-500/20 text-white shadow-lg scale-105"
-                        : "hover:bg-white/10 text-gray-300"
+                        : "hover:bg-white/10 hover:shadow-md hover:shadow-blue-500/50 text-gray-300"
                     }`}
                   >
-                    <item.icon size={24} className="text-blue-300" />
+                    <item.icon size={24} className="text-blue-300 drop-shadow" />
                     {!isCollapsed && (
                       <span className="text-base font-medium">{item.name}</span>
                     )}
@@ -101,12 +102,12 @@ const Sidebar = () => {
         </nav>
 
         {/* Profile & Logout Section */}
-        <div className="border-t border-gray-800 p-6 mt-auto">
+        <div className="border-t border-gray-800 p-6 mt-auto bg-white/10 backdrop-blur-md">
           <div className="flex items-center justify-between">
             {/* User Info */}
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center">
-                <User size={54} className="text-blue-300" />
+              <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center shadow-inner">
+                <User size={24} className="text-blue-300 drop-shadow-lg" />
               </div>
               <AnimatePresence>
                 {!isCollapsed && (
@@ -122,7 +123,7 @@ const Sidebar = () => {
               </AnimatePresence>
             </div>
 
-            {/* 🔥 Stylish Compact Logout Button */}
+            {/* Stylish Logout Button */}
             <motion.button
               onClick={() => {
                 localStorage.removeItem("token");
