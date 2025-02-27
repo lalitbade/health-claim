@@ -1,0 +1,43 @@
+"use client";
+import { useState } from "react";
+import Sidebar from "../components/Sidebar";  // Adjust path based on folder structure
+import Header from "../components/Header";
+import PolicyDetails from "../components/PolicyDetails";
+import DocumentsList from "../components/DocumentsList";
+import Graphs from "../components/Graphs";
+
+export default function Dashboard() {
+  const [darkMode, setDarkMode] = useState(true);
+
+  return (
+    <div className={`${darkMode ? "dark" : ""} transition-all duration-500`}>
+      <div className="flex h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white">
+        {/* Sidebar */}
+        <Sidebar />
+
+        {/* Main Content */}
+        <div className="flex flex-col flex-1 ml-64">
+          <Header toggleTheme={() => setDarkMode(!darkMode)} />
+
+          {/* Main Dashboard Layout */}
+          <main className="bg-gray-50 dark:bg-gray-800 flex-1 overflow-y-auto mt-16 p-8 space-y-6">
+            {/* Graphs Section */}
+            <Graphs />
+
+            {/* Policy Details & Documents Section */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {/* Policy Details (2/3 Width) */}
+              <div className="md:col-span-2">
+                <PolicyDetails />
+              </div>
+              {/* Documents (1/3 Width) */}
+              <div className="md:col-span-1">
+                <DocumentsList />
+              </div>
+            </div>
+          </main>
+        </div>
+      </div>
+    </div>
+  );
+}
