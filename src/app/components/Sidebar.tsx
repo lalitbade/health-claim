@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Home, FolderPlus, List, Settings, LogOut, Menu, User, ShieldCheck } from "lucide-react";
@@ -8,7 +8,14 @@ import * as Tooltip from "@radix-ui/react-tooltip";
 
 const Sidebar = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [username, setUsername] = useState<string | null>(null);
   const pathname = usePathname();
+
+  useEffect(() => {
+    // Retrieve user data from localStorage
+    const storedUsername = localStorage.getItem("username");
+    setUsername(storedUsername || "Guest");
+  }, []);
 
   // Navigation Items
   const menuItems = [
@@ -84,7 +91,7 @@ const Sidebar = () => {
           ))}
         </nav>
 
-        {/* Profile Section */}
+        {/* Profile & Logout Section */}
         <div className="border-t border-gray-800 p-4 mt-auto">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center">
@@ -97,12 +104,26 @@ const Sidebar = () => {
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -10 }}
                 >
-                  <h2 className="text-lg font-semibold">Lalit Bade</h2>
+                  <h2 className="text-lg font-semibold">{username}</h2>
                   <p className="text-sm text-gray-400">Customer</p>
                 </motion.div>
               )}
             </AnimatePresence>
           </div>
+
+          {/* Logout Button */}
+          <button
+            onClick={() => {
+              localStorage.removeItem("token");
+              localStorage.removeItem("username");
+              localStorage.removeItem("user");
+              window.location.href = "/login";
+            }}
+            className="flex items-center gap-4 p-3 mt-4 rounded-lg bg-red-600 text-white hover:bg-red-700 transition-all w-full"
+          >
+            <LogOut size={20} />
+            {!isCollapsed && <span className="text-base font-medium">Logout</span>}
+          </button>
         </div>
       </motion.aside>
     </Tooltip.Provider>

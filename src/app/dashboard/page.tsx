@@ -5,9 +5,10 @@ import Header from "../components/Header";
 import PolicyDetails from "../components/PolicyDetails";
 import DocumentsList from "../components/DocumentsList";
 import Graphs from "../components/Graphs";
+import Chatbot from "../components/Chatbot";
 
 export default function Dashboard() {
-  const [darkMode, setDarkMode] = useState(true);
+  const [darkMode, setDarkMode] = useState(false);
 
   return (
     <div className={`${darkMode ? "dark" : ""} transition-all duration-500`}>
@@ -23,7 +24,7 @@ export default function Dashboard() {
           <main className="bg-gray-50 dark:bg-gray-800 flex-1 overflow-y-auto mt-16 p-8 space-y-6">
             {/* Graphs Section */}
             <Graphs />
-
+          <Chatbot/>
             {/* Policy Details & Documents Section */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {/* Policy Details (2/3 Width) */}

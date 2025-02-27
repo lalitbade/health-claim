@@ -1,15 +1,30 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { FaMoon, FaSun, FaUserCircle } from "react-icons/fa";
 
 const Header = ({ toggleTheme }: { toggleTheme: () => void }) => {
+  const router = useRouter();
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const isLoggedIn = true; // Change this based on authentication state
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    // Check if user is logged in
+    const token = localStorage.getItem("token");
+    setIsLoggedIn(!!token);
+  }, []);
 
   const handleThemeToggle = () => {
     setIsDarkMode(!isDarkMode);
     toggleTheme();
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    setIsLoggedIn(false);
+    router.push("/login"); // Redirect to login page
   };
 
   return (
@@ -17,9 +32,9 @@ const Header = ({ toggleTheme }: { toggleTheme: () => void }) => {
       {/* Left: Navigation */}
       <div className="flex items-center space-x-8">
         <nav className="hidden md:flex space-x-6">
-          <a href="#" className="text-gray-600 dark:text-gray-300 hover:text-blue-500">Home</a>
-          <a href="#" className="text-gray-600 dark:text-gray-300 hover:text-blue-500">About</a>
-          <a href="#" className="text-gray-600 dark:text-gray-300 hover:text-blue-500">Contact</a>
+          <a href="/home" className="text-gray-600 dark:text-gray-300 hover:text-blue-500">Home</a>
+          <a href="/about" className="text-gray-600 dark:text-gray-300 hover:text-blue-500">About</a>
+          <a href="/contact" className="text-gray-600 dark:text-gray-300 hover:text-blue-500">Contact</a>
         </nav>
       </div>
 
@@ -44,7 +59,10 @@ const Header = ({ toggleTheme }: { toggleTheme: () => void }) => {
             </button>
             {isDropdownOpen && (
               <div className="absolute right-0 mt-2 w-40 bg-white dark:bg-gray-800 shadow-lg rounded-md py-2">
-                <button className="block px-4 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 w-full text-left">
+                <button
+                  onClick={handleLogout}
+                  className="block px-4 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 w-full text-left"
+                >
                   Logout
                 </button>
               </div>
