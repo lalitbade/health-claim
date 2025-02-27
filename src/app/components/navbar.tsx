@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Link from "next/link";
+import Link from "next/link"; // Make sure to import Link for navigation
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Activity, Shield, Zap } from "lucide-react";
@@ -10,7 +10,6 @@ export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const { scrollY } = useScroll();
 
-  // Transformations on scroll for smooth effect
   const backgroundColor = useTransform(
     scrollY,
     [0, 50],
@@ -26,10 +25,9 @@ export function Navbar() {
   const boxShadow = useTransform(
     scrollY,
     [0, 50],
-    ["none", "0 4px 20px rgba(0, 0, 0, 0.1)"]
+    ["none", "0 4px 20px rgba(0, 0, 0, 0.05)"]
   );
 
-  // Detect scroll event for navbar behavior
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 50) {
@@ -54,7 +52,6 @@ export function Navbar() {
     >
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex items-center justify-between">
-          {/* Logo */}
           <Link href="/" className="flex items-center space-x-2">
             <img
               src="/BlueIcon.svg"
@@ -63,7 +60,6 @@ export function Navbar() {
             />
           </Link>
 
-          {/* Navigation links for large screens */}
           <nav className="hidden md:flex items-center space-x-8">
             <Link
               href="#how-it-works"
@@ -85,40 +81,19 @@ export function Navbar() {
             </Link>
           </nav>
 
-          {/* Mobile navigation menu toggle */}
-          <div className="md:hidden flex items-center space-x-4">
-            <Button
-              variant="outline"
-              size="sm"
-              className="bg-white text-black"
-            >
-              Log In
-            </Button>
-            <Button
-              variant="gradient"
-              className="bg-blue-600 text-white"
-              size="sm"
-            >
-              Get Started
-            </Button>
-          </div>
+          <div className="flex items-center space-x-4">
+           
 
-          {/* Desktop Button Section */}
-          <div className="hidden md:flex items-center space-x-4">
-            <Button
-              variant="outline"
-              size="sm"
-              className="bg-white text-black hidden md:inline-flex"
-            >
-              Log In
-            </Button>
-            <Button
-              variant="gradient"
-              size="sm"
-              className="bg-blue-600 text-white"
-            >
-              Get Started
-            </Button>
+            {/* Get Started Button */}
+            <Link href="/login">
+              <Button
+                variant="gradient"
+                size="lg" // Increased size
+                className="bg-blue-600 text-white hover:bg-blue-700 rounded-lg px-8 py-3 text-base font-medium transition-all duration-300 ease-in-out shadow-lg"
+              >
+                Get Started
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

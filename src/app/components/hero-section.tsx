@@ -1,5 +1,5 @@
 "use client";
-
+import Link from "next/link"; 
 import { useRef, useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { gsap } from "gsap";
@@ -132,10 +132,15 @@ export function HeroSection() {
             className="flex flex-col sm:flex-row items-center justify-center gap-4"
             style={{ opacity: 1 }}  // Ensure it's always visible
           >
-            <Button variant="gradient" className="w-full sm:w-auto bg-blue-600 text-white hover:bg-blue-700 transition-colors duration-300">
-              Get Started
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
+            <Link href="/login">
+              <Button
+                variant="gradient"
+                size="lg" // Increased size
+                className="bg-blue-600 text-white hover:bg-blue-700 rounded-lg px-8 py-3 text-base font-medium transition-all duration-300 ease-in-out shadow-lg"
+              >
+                Get Started
+              </Button>
+            </Link>
         
 
           </motion.div>
