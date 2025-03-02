@@ -3,7 +3,8 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { ShieldCheck } from "lucide-react";
+import Link from "next/link";
+import "@fontsource/lexend-deca";
 
 const Signup: React.FC = () => {
   const router = useRouter();
@@ -26,7 +27,7 @@ const Signup: React.FC = () => {
     const signupData = { username, email, fullname: fullName, password };
 
     try {
-      const response = await fetch("http://172.21.4.224:8000/signup", {
+      const response = await fetch("http://172.21.162.243:8000/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(signupData),
@@ -52,87 +53,90 @@ const Signup: React.FC = () => {
   };
 
   return (
-    <div className="bg-white text-black h-screen w-screen flex">
+    <div className="h-screen w-screen flex bg-gray-100 font-['Lexend Deca']">
       {/* Left Side - Signup Form */}
-      <div className="w-2/5 h-full flex flex-col justify-center items-center px-12">
-        <div className="mb-8">
-          <ShieldCheck size={28} className="text-blue-500" />
-        </div>
+      <div className="w-1/2 h-full flex justify-center items-center bg-white shadow-lg">
+        <div className="w-full max-w-md">
+          {/* Logo */}
+          <Link href="/" className="flex justify-start mb-6">
+            <img src="/BlueIcon.svg" alt="Insuraflow" className="h-16 w-auto object-contain" />
+          </Link>
 
-        <h2 className="text-4xl font-semibold mb-2">Create Your InsuraFlow Account</h2>
-        <p className="text-gray-600 text-lg mb-6">
-          Join now and manage your health insurance claims effortlessly
-        </p>
+          {/* Heading */}
+          <h2 className="text-4xl font-bold text-gray-900 mb-2 text-left">Create an Account</h2>
+          <p className="text-gray-600 text-lg mb-6 text-left">
+            Join now and manage your insurance claims effortlessly.
+          </p>
 
-        {error && <p className="text-red-500 mb-4 text-sm">{error}</p>}
+          {/* Error Message */}
+          {error && <p className="text-red-500 mb-4 text-sm">{error}</p>}
 
-        <form onSubmit={handleSignup} className="w-full max-w-sm space-y-5">
-          <input
-            type="text"
-            className="w-full p-3 border border-gray-300 rounded-md text-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
+          {/* Signup Form */}
+          <form onSubmit={handleSignup} className="w-full space-y-5">
+            <input
+              type="text"
+              className="w-full p-3 border border-gray-300 rounded-md text-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-400"
+              placeholder="Username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            />
+            <input
+              type="text"
+              className="w-full p-3 border border-gray-300 rounded-md text-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-400"
+              placeholder="Full Name"
+              value={fullName}
+              onChange={(e) => setFullName(e.target.value)}
+              required
+            />
+            <input
+              type="email"
+              className="w-full p-3 border border-gray-300 rounded-md text-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-400"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+            <input
+              type="password"
+              className="w-full p-3 border border-gray-300 rounded-md text-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-400"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            <input
+              type="password"
+              className="w-full p-3 border border-gray-300 rounded-md text-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-400"
+              placeholder="Confirm Password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              required
+            />
 
-          <input
-            type="text"
-            className="w-full p-3 border border-gray-300 rounded-md text-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="Full Name"
-            value={fullName}
-            onChange={(e) => setFullName(e.target.value)}
-            required
-          />
+            <button
+              type="submit"
+              className="w-full py-3 bg-blue-500 text-white font-semibold rounded-md text-lg shadow-md hover:bg-blue-600 transition duration-200"
+            >
+              Sign Up
+            </button>
+          </form>
 
-          <input
-            type="email"
-            className="w-full p-3 border border-gray-300 rounded-md text-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-
-          <input
-            type="password"
-            className="w-full p-3 border border-gray-300 rounded-md text-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-
-          <input
-            type="password"
-            className="w-full p-3 border border-gray-300 rounded-md text-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="Confirm Password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            required
-          />
-
-          <button
-            type="submit"
-            className="w-full py-3 bg-blue-500 text-white rounded-md text-lg shadow-md hover:bg-blue-600 transition duration-200"
-          >
-            Sign Up
-          </button>
-        </form>
-
-        <div className="mt-4 text-lg">
-          Already have an account?{" "}
-          <a href="/login" className="text-blue-500 hover:underline">
-            Login
-          </a>
+          {/* Login Redirect */}
+          <div className="text-lg text-gray-600 mt-6 text-center">
+            Already have an account?{" "}
+            <Link href="/login" className="text-blue-500 hover:underline">
+              Log in
+            </Link>
+          </div>
         </div>
       </div>
 
       {/* Right Side - Full-Screen Image */}
-      <div className="w-3/5 h-full">
+      <div className="w-1/2 h-full">
         <Image
-          src="https://images.unsplash.com/photo-1582719471384-894fbb16e074?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-          alt="Health Insurance Claim Illustration"
+          src="/yoyoyo.svg"
+          alt="Signup Illustration"
           width={800}
           height={600}
           className="w-full h-full object-cover"

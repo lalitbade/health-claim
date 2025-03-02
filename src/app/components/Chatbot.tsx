@@ -59,7 +59,7 @@ const Chatbot = () => {
           <div className="flex items-center justify-between border-b pb-3 mb-3">
             <div className="flex items-center space-x-2">
               <ShieldCheck size={24} className="text-blue-600" />
-              <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100">InsuraFlow AI ChatBot</h2>
+              <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100">InsuraFlow AI Chat</h2>
             </div>
             <button onClick={() => setIsOpen(false)} className="text-gray-500 hover:text-gray-700">
               ✖

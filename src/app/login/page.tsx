@@ -3,7 +3,8 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { ShieldCheck } from "lucide-react";
+import Link from "next/link";
+import "@fontsource/lexend-deca";
 
 const Login: React.FC = () => {
   const router = useRouter();
@@ -21,7 +22,7 @@ const Login: React.FC = () => {
     }
 
     if (username === "admin" && password === "admin123") {
-      localStorage.setItem("username", username); // Store username for sidebar use
+      localStorage.setItem("username", username);
       router.push("/admin");
       return;
     }
@@ -31,7 +32,7 @@ const Login: React.FC = () => {
     formData.append("password", password);
 
     try {
-      const response = await fetch("http://172.21.4.224:8000/signin", {
+      const response = await fetch("http://172.21.162.243:8000/signin", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: formData.toString(),
@@ -42,7 +43,7 @@ const Login: React.FC = () => {
       if (response.ok) {
         localStorage.setItem("token", data.token);
         localStorage.setItem("user", JSON.stringify(data.user));
-        localStorage.setItem("username", username); // Store username in localStorage
+        localStorage.setItem("username", username);
         router.push("/dashboard");
       } else {
         setError(data.message || "Failed to login");
@@ -54,57 +55,74 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className="h-screen w-screen flex bg-gray-100">
-      {/* Left Side - Login Form */}
-      <div className="w-2/5 h-full flex flex-col justify-center items-center px-10 bg-white shadow-lg">
-        <div className="mb-8 flex items-center gap-3">
-          <ShieldCheck size={28} className="text-blue-500" />
-          <h1 className="text-3xl font-bold text-gray-800">InsuraFlow</h1>
-        </div>
+    <div className="h-screen w-screen flex bg-gray-100 font-['Lexend Deca']">
+      {/* Left Side - Centered Login Form */}
+      <div className="w-1/2 h-full flex justify-center items-center bg-white shadow-lg">
+        <div className="w-full max-w-md">
+          {/* Left-Aligned Logo */}
+          <Link href="/" className="block mb-12">
+            <img src="/BlueIcon.svg" alt="Insuraflow" className="h-16 w-auto object-contain" />
+          </Link>
 
-        <h2 className="text-3xl font-semibold text-gray-900 mb-2">Welcome Back!</h2>
-        <p className="text-gray-600 text-lg mb-6">Securely manage your health insurance claims</p>
+          {/* Left-Aligned Heading */}
+          <h2 className="text-5xl font-bold text-gray-900 mb-2 text-left">Welcome back!</h2>
 
-        {error && <p className="text-red-500 mb-4 text-sm">{error}</p>}
+          {/* Center-Aligned Subtext */}
+          <p className="text-gray-600 text-xl mb-6 text-left">Fasten your insurance process</p>
 
-        <form onSubmit={handleLogin} className="w-full max-w-sm space-y-4">
-          <input
-            type="text"
-            className="text-black w-full p-3 border border-gray-300 rounded-md text-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-400"
-            placeholder="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-          <input
-            type="password"
-            className="text-black w-full p-3 border border-gray-300 rounded-md text-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-400"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-          <button
-            type="submit"
-            className="w-full py-3 bg-blue-500 text-white font-semibold rounded-md text-lg shadow-md hover:bg-blue-600 transition duration-200"
-          >
-            Login
-          </button>
-        </form>
+          {/* Error Message */}
+          {error && <p className="text-red-500 mb-4 text-sm text-center">{error}</p>}
 
-        <div className="mt-4 text-lg">
-          <a href="#" className="text-blue-500 hover:underline">Forgot Password?</a>
-        </div>
-        <div className="text-lg text-gray-600 mt-4">
-          Don't have an account?{" "}
-          <a href="/signup" className="text-blue-500 hover:underline">Sign up</a>
+          {/* Login Form - Centered */}
+          <form onSubmit={handleLogin} className="w-full space-y-5 text-center">
+            <input
+              type="text"
+              className="w-full p-3 border border-gray-300 rounded-md text-lg bg-gray-50 focus:outline-none text-black focus:ring-2 focus:ring-blue-400"
+              placeholder="Username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+            <input
+              type="password"
+              className="w-full p-3 border border-gray-300 rounded-md text-lg bg-gray-50 focus:outline-none text-black focus:ring-2 focus:ring-blue-400"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+
+            <div className="flex items-center justify-between text-gray-600">
+              <label className="flex items-center">
+                <input type="checkbox" className="mr-2" /> Remember me
+              </label>
+              <Link href="#" className="text-blue-500 text-sm hover:underline">
+                Forgot password?
+              </Link>
+            </div>
+
+            <button
+              type="submit"
+              className="w-full py-3 bg-blue-500 text-white font-semibold rounded-md text-lg shadow-md hover:bg-blue-600 transition duration-200"
+            >
+              Log in
+            </button>
+          </form>
+
+          {/* Signup Redirect - Centered */}
+          <div className="text-lg text-gray-600 mt-6 text-center">
+            Don't have an account?{" "}
+            <Link href="/signup" className="text-blue-500 hover:underline">
+              Sign Up
+            </Link>
+          </div>
         </div>
       </div>
 
       {/* Right Side - Full-Screen Image */}
-      <div className="w-3/5 h-full">
+      <div className="w-1/2 h-full">
         <Image
-          src="https://images.unsplash.com/photo-1582719471384-894fbb16e074?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-          alt="Health Insurance Login Illustration"
+          src="/Frame3.svg"
+          alt="Insurance Dashboard Illustration"
           width={800}
           height={600}
           className="w-full h-full object-cover"

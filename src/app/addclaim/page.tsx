@@ -66,7 +66,7 @@ const AddClaim = () => {
     files.forEach((file) => formData.append("file", file));
 
     try {
-      const response = await fetch("http://172.21.4.224:8000/process-claim", {
+      const response = await fetch("http://172.21.162.243:8000/process-claim", {
         method: "POST",
         body: formData,
       });
